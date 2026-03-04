@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glass Neon Portal • 2026</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100dvh;
+      background: radial-gradient(circle at 15% 50%, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #e0e0ff;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      height: 100dvh;
+      display: grid;
+      place-items: center;
+      perspective: 1800px;
+      z-index: 2;
+    }
+
+    .card {
+      width: 380px;
+      height: 520px;
+      background: rgba(20, 20, 60, 0.28);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(120, 100, 255, 0.18);
+      border-radius: 28px;
+      box-shadow: 
+        0 30px 80px rgba(0,0,0,0.6),
+        inset 0 0 40px rgba(80,60,220,0.12);
+      transform-style: preserve-3d;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: 
+        translateY(-18px) 
+        rotateX(12deg) 
+        rotateY(16deg) 
+        scale(1.04);
+      box-shadow: 
+        0 60px 140px rgba(0,0,0,0.7),
+        inset 0 0 60px rgba(100,80,255,0.22);
+    }
+
+    .glow {
+      position: absolute;
+      inset: -50%;
+      background: radial-gradient(
+        circle at var(--x, 50%) var(--y, 50%), 
+        rgba(140, 100, 255, 0.35) 0%,
+        transparent 60%
+      );
+      pointer-events: none;
+      transition: opacity 0.6s;
+      opacity: 0;
+    }
+
+    .card:hover .glow {
+      opacity: 1;
+    }
+
+    .content {
+      padding: 3.2rem 2.4rem;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    h1 {
+      font-size: 3.1rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a78bfa, #7c3aed, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+      letter-spacing: -1px;
+      text-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+    }
+
+    p.subtitle {
+      font-size: 1.18rem;
+      opacity: 0.92;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-neon {
+      display: inline-block;
+      padding: 16px 48px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f0efff;
+      text-decoration: none;
+      background: linear-gradient(45deg, #6d28d9, #a855f7, #c084fc);
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s;
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+    }
+
+    .btn-neon:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(168, 85, 247, 0.6);
+      background-position: right center;
+    }
+
+    .btn-neon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: translateX(-100%);
+      transition: 0.7s;
+    }
+
+    .btn-neon:hover::before {
+      transform: translateX(100%);
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(10px);
+      display: grid;
+      place-items: center;
+      color: #d1d5ff;
+      font-size: 1.4rem;
+      transition: all 0.35s;
+      border: 1px solid rgba(200,180,255,0.15);
+    }
+
+    .social-icon:hover {
+      transform: translateY(-8px) scale(1.15);
+      background: rgba(168, 85, 247, 0.25);
+      color: white;
+      box-shadow: 0 12px 30px rgba(168, 85, 247, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div class="container">
+  <div class="card" id="theCard">
+    <div class="glow" id="glow"></div>
+    
+    <div class="content">
+      <div>
+        <h1>NEON<br>PORTAL</h1>
+        <p class="subtitle">
+          Where creativity meets the edge of tomorrow.<br>
+          Experimental digital experiences • 2026
+        </p>
+      </div>
+
+      <div>
+        <a href="https://github.com/your-username" class="btn-neon" target="_blank">
+          View My Universe →
+        </a>
+
+        <div class="socials">
+          <a href="#" class="social-icon">𝕏</a>
+          <a href="#" class="social-icon">GH</a>
+          <a href="#" class="social-icon">✦</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tsParticles@3/tsparticles.bundle.min.js"></script>
+<script>
+// Particle background
+tsParticles.load("particles", {
+  preset: "links",
+  particles: {
+    number: { value: 80, density: { enable: true, value_area: 900 } },
+    color: { value: ["#a78bfa", "#c084fc", "#7c3aed"] },
+    links: {
+      enable: true,
+      distance: 140,
+      color: "#a78bfa",
+      opacity: 0.4,
+      width: 1.2
+    },
+    move: {
+      enable: true,
+      speed: 1.2,
+      direction: "none",
+      random: true,
+      attract: { enable: true, rotateX: 600, rotateY: 1200 }
+    },
+    opacity: { value: 0.55, random: true, anim: { enable: true, speed: 1.2 } },
+    size: { value: 3.5, random: true }
+  },
+  interactivity: {
+    detectsOn: "canvas",
+    events: {
+      onhover: { enable: true, mode: "grab" },
+      resize: true
+    },
+    modes: {
+      grab: { distance: 220, links: { opacity: 0.7 } }
+    }
+  },
+  retina_detect: true
+});
+
+// 3D mouse tilt + glow follow
+const card = document.getElementById("theCard");
+const glow = document.getElementById("glow");
+
+card.addEventListener("mousemove", e => {
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  const rotateY = (x - centerX) / 18;
+  const rotateX = -(y - centerY) / 18;
+
+  card.style.transform = `
+    translateY(-18px)
+    rotateX(${rotateX}deg)
+    rotateY(${rotateY}deg)
+    scale(1.04)
+  `;
+
+  glow.style.setProperty("--x", `${x}px`);
+  glow.style.setProperty("--y", `${y}px`);
+});
+
+card.addEventListener("mouseleave", () => {
+  card.style.transform = "translateY(0) rotateX(0) rotateY(0) scale(1)";
+});
+</script>
+
+</body>
+</html>
